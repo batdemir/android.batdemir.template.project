@@ -1,0 +1,1 @@
+android.batdemir.template.project
