@@ -1,0 +1,54 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="30.4dp"
+    android:viewportWidth="48"
+    android:viewportHeight="30.4">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M7,4h2L9,26.4L7,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M8.724,4h2L10.724,26.4L8.724,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M11.897,4h2L13.897,26.4L11.897,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M15.069,4h2L17.069,26.4L15.069,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M18.241,4h2L20.241,26.4L18.241,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M21.414,4h2L23.414,26.4L21.414,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M24.586,4h2L26.586,26.4L24.586,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M27.759,4h2L29.759,26.4L27.759,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M30.931,4h2L32.931,26.4L30.931,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M34.103,4h2L36.103,26.4L34.103,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M37.276,4h2L39.276,26.4L37.276,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M39,4h2L41,26.4L39,26.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M0,1v4L2,5L2,2L5,2L5,0L1,0A1,1 0,0 0,0 1Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M47,0L43,0v2h3v3h2L48,1A1,1 0,0 0,47 0Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M2,25.4L0,25.4v4a1,1 0,0 0,1 1L5,30.4L5,28.4L2,28.4Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M46,28.4L43,28.4v2h4a1,1 0,0 0,1 -1L48,25.4L46,25.4Z" />
+</vector>

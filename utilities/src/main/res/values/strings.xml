@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">utilities</string>
+    <string name="data_wedge_default_action" translatable="false">com.symbol.datawedge.api.ACTION</string>
+    <string name="data_wedge_api_status" translatable="false">com.symbol.datawedge.api.ENABLE_DATAWEDGE</string>
+
+    <string name="please_check_your_internet_connection">" Please, check your internet connection."</string>
+</resources>

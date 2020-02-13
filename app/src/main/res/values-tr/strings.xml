@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ALERT DIALOG MESSAGE -->
+    <string name="message_please_activate_the_permissions_in_the_Applications_app_name_permissions_section">Lütfen, izinleri \" Uygulamalar > %1$s > İzinler\" bölümünden aktif ediniz.</string>
+    <string name="message_are_you_sure_exit_application">Uygulamadan çıkmak istediğinizden emin misiniz?</string>
+    <string name="message_please_enter_barcode">Lütfen bir barkod girin.</string>
+
+    <!-- EXCEPTION MESSAGE -->
+    <string name="exception_last_process_failed">Son işlem başarısız oldu.</string>
+    <string name="exception_system_closed_by_unexpected_error">Sistem beklenmedik bir hata nedeniyle kapatıldı.</string>
+    <string name="exception_please_contact_your_manager">Lütfen yöneticinize başvurun.</string>
+</resources>
