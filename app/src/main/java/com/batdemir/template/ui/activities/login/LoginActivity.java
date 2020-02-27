@@ -8,7 +8,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginContr
 
     @Override
     public void onCreated() {
-        init(R.layout.activity_login, "Login");
+        init(R.layout.activity_login, R.style.AppThemeActionBar, "Login", 16f, false, true);
     }
 
     @Override
@@ -23,6 +23,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginContr
 
     @Override
     public void setListeners() {
-        //Not imptlemented
+        //Not implemented
     }
 }

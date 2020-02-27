@@ -50,15 +50,15 @@ public class DateInputMask implements TextWatcher {
             int mon = Integer.parseInt(clean.substring(2, 4));
             int year = Integer.parseInt(clean.substring(4, 8));
 
-            mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
+            mon = mon < 1 ? 1 : Math.min(mon, 12);
             cal.set(Calendar.MONTH, mon - 1);
-            year = (year < 1900) ? 1900 : (year > 2100) ? 2100 : year;
+            year = (year < 1900) ? 1900 : Math.min(year, 2100);
             cal.set(Calendar.YEAR, year);
             // ^ first set year for the line below to work correctly
             //with leap years - otherwise, date e.g. 29/02/2012
             //would be automatically corrected to 28/02/2012
 
-            day = (day > cal.getActualMaximum(Calendar.DATE)) ? cal.getActualMaximum(Calendar.DATE) : day;
+            day = Math.min(day, cal.getActualMaximum(Calendar.DATE));
             clean = String.format(Locale.US, "%02d%02d%02d", day, mon, year);
         }
 
@@ -66,10 +66,10 @@ public class DateInputMask implements TextWatcher {
                 clean.substring(2, 4),
                 clean.substring(4, 8));
 
-        sel = sel < 0 ? 0 : sel;
+        sel = Math.max(sel, 0);
         current = clean;
         input.setText(current);
-        input.setSelection(sel < current.length() ? sel : current.length());
+        input.setSelection(Math.min(sel, current.length()));
     }
 
     @Override

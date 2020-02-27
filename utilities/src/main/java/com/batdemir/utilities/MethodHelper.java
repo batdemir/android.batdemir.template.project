@@ -44,4 +44,12 @@ public class MethodHelper {
         dataWedge.putExtra(context.getString(R.string.data_wedge_api_status), enableScanner);
         context.sendBroadcast(dataWedge);
     }
+
+    public void setScannerV8(Context context, boolean enableScanner) {
+        String pluginStatus = context.getString(enableScanner ? R.string.data_wedge_scanner_plugin_resume : R.string.data_wedge_scanner_plugin_suspend);
+        Intent dataWedge = new Intent();
+        dataWedge.setAction(context.getString(R.string.data_wedge_default_action));
+        dataWedge.putExtra(context.getString(R.string.data_wedge_scanner_plugin), pluginStatus);
+        context.sendBroadcast(dataWedge);
+    }
 }
