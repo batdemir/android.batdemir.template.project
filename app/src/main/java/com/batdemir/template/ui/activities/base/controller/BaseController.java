@@ -1,9 +1,7 @@
 package com.batdemir.template.ui.activities.base.controller;
 
-import androidx.databinding.ViewDataBinding;
-
 @SuppressWarnings({"squid:S00119"})
-public class BaseController<Binding extends ViewDataBinding> {
+public class BaseController<Binding> {
 
     private Binding binding;
 

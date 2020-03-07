@@ -4,27 +4,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 
 import com.android.batdemir.mydialog.listeners.MyAlertDialogButtonListener;
 import com.android.batdemir.mydialog.ui.MyAlertDialog;
+import com.android.batdemir.mydialog.ui.MyDialogStyle;
 import com.batdemir.template.R;
 import com.batdemir.template.ui.activities.base.controller.BaseController;
-import com.batdemir.template.ui.activities.base.controller.ControllerFactory;
+import com.batdemir.template.ui.activities.base.factory.BindingFactory;
+import com.batdemir.template.ui.activities.base.factory.ControllerFactory;
 import com.batdemir.utilities.MethodHelper;
 
 @SuppressWarnings({"squid:S00119"})
-public abstract class BaseActivity<Binding extends ViewDataBinding, Controller extends BaseController> extends AppCompatActivity implements
+public abstract class BaseActivity<Binding, Controller extends BaseController> extends AppCompatActivity implements
         BaseActions,
         MyAlertDialogButtonListener {
 
     private boolean isFirstActivity;
-    private int layoutId;
     private Binding binding;
     private Controller controller;
 
@@ -54,13 +52,13 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        destory();
+        destroy();
     }
 
     @Override
     public void onBackPressed() {
         if (isFirstActivity) {
-            MyAlertDialog.getInstance(getString(R.string.message_are_you_sure_exit_application), MyAlertDialog.DialogStyle.ACTION).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exit));
+            MyAlertDialog.getInstance(getString(R.string.message_are_you_sure_exit_application), MyDialogStyle.ACTION).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exit));
             return;
         } else {
             finish();
@@ -100,17 +98,16 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
     // FUNCTIONS
 
     private void create() {
-        binding = binding == null ? DataBindingUtil.setContentView(this, layoutId) : binding;
+        binding = binding == null ? BindingFactory.getInstance().getBinding(this.getClass().getSimpleName().replace("Activity", "").replace("Binding", ""), this.getLayoutInflater()) : binding;
         controller = controller == null ? ControllerFactory.getInstance().getController(this.getClass().getSimpleName().replace("Activity", ""), binding) : controller;
     }
 
-    private void destory() {
+    private void destroy() {
         binding = null;
         controller = null;
     }
 
-    protected void init(@LayoutRes int layoutId, String title) {
-        this.layoutId = layoutId;
+    protected void init(String title) {
         setTheme(R.style.AppThemeActionBar);
         if (getSupportActionBar() == null)
             return;
@@ -120,8 +117,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    protected void init(@LayoutRes int layoutId, @StyleRes int theme, String title) {
-        this.layoutId = layoutId;
+    protected void init(@StyleRes int theme, String title) {
         setTheme(theme);
         if (getSupportActionBar() == null)
             return;
@@ -131,8 +127,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    protected void init(@LayoutRes int layoutId, @StyleRes int theme, String title, boolean showHomeButton) {
-        this.layoutId = layoutId;
+    protected void init(@StyleRes int theme, String title, boolean showHomeButton) {
         setTheme(theme);
         if (getSupportActionBar() == null)
             return;
@@ -142,8 +137,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
         getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
     }
 
-    protected void init(@LayoutRes int layoutId, @StyleRes int theme, String title, float elevation) {
-        this.layoutId = layoutId;
+    protected void init(@StyleRes int theme, String title, float elevation) {
         setTheme(theme);
         if (getSupportActionBar() == null)
             return;
@@ -153,8 +147,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    protected void init(@LayoutRes int layoutId, @StyleRes int theme, String title, float elevation, boolean showHomeButton) {
-        this.layoutId = layoutId;
+    protected void init(@StyleRes int theme, String title, float elevation, boolean showHomeButton) {
         setTheme(theme);
         if (getSupportActionBar() == null)
             return;
@@ -164,8 +157,7 @@ public abstract class BaseActivity<Binding extends ViewDataBinding, Controller e
         getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
     }
 
-    protected void init(@LayoutRes int layoutId, @StyleRes int theme, String title, float elevation, boolean showHomeButton, boolean isFirstActivity) {
-        this.layoutId = layoutId;
+    protected void init(@StyleRes int theme, String title, float elevation, boolean showHomeButton, boolean isFirstActivity) {
         this.isFirstActivity = isFirstActivity;
         setTheme(theme);
         if (getSupportActionBar() == null)

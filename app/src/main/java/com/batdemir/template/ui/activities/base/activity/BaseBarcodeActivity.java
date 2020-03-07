@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.ViewDataBinding;
 
 import com.android.batdemir.mydialog.listeners.MyAlertDialogEditTextListener;
 import com.android.batdemir.mydialog.ui.MyAlertDialog;
+import com.android.batdemir.mydialog.ui.MyDialogStyle;
 import com.batdemir.template.R;
 import com.batdemir.template.app.MyReceiver;
 import com.batdemir.template.app.OnReceivedListener;
@@ -21,7 +21,7 @@ import com.batdemir.template.ui.activities.base.controller.BaseController;
 import com.batdemir.utilities.MethodHelper;
 
 @SuppressWarnings({"squid:S00119"})
-public abstract class BaseBarcodeActivity<Binding extends ViewDataBinding, Controller extends BaseController> extends BaseActivity<Binding, Controller> implements
+public abstract class BaseBarcodeActivity<Binding, Controller extends BaseController> extends BaseActivity<Binding, Controller> implements
         MyAlertDialogEditTextListener {
 
     private MyReceiver myReceiver;
@@ -59,7 +59,7 @@ public abstract class BaseBarcodeActivity<Binding extends ViewDataBinding, Contr
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.itemBarcodeReceive) {
-            MyAlertDialog myAlertDialog = MyAlertDialog.getInstance(getString(R.string.message_please_enter_barcode), MyAlertDialog.DialogStyle.INPUT);
+            MyAlertDialog myAlertDialog = MyAlertDialog.getInstance(getString(R.string.message_please_enter_barcode), MyDialogStyle.INPUT);
             myAlertDialog.show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_barcode_dialog));
             return true;
         }

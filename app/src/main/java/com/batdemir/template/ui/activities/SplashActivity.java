@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.batdemir.mydialog.listeners.MyAlertDialogButtonListener;
 import com.android.batdemir.mydialog.ui.MyAlertDialog;
+import com.android.batdemir.mydialog.ui.MyDialogStyle;
 import com.android.batdemir.mylibrary.tools.Tool;
 import com.batdemir.template.R;
 import com.batdemir.template.ui.activities.login.LoginActivity;
@@ -55,7 +56,7 @@ public class SplashActivity extends AppCompatActivity implements
                             || !shouldShowRequestPermissionRationale(permissions[8])
                             || !shouldShowRequestPermissionRationale(permissions[9])
                             || !shouldShowRequestPermissionRationale(permissions[10])) {
-                        MyAlertDialog.getInstance(getString(R.string.message_please_activate_the_permissions_in_the_Applications_app_name_permissions_section, getString(R.string.app_name)), MyAlertDialog.DialogStyle.INFO).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_permission));
+                        MyAlertDialog.getInstance(getString(R.string.message_please_activate_the_permissions_in_the_Applications_app_name_permissions_section, getString(R.string.app_name)), MyDialogStyle.INFO).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_permission));
                     } else {
                         try {
                             Thread.sleep(2000);
@@ -134,7 +135,7 @@ public class SplashActivity extends AppCompatActivity implements
     private boolean checkException() {
         String result = getIntent().getStringExtra("CRASH_REPORT");
         if (result != null && !result.isEmpty()) {
-            MyAlertDialog.getInstance(result, MyAlertDialog.DialogStyle.FAILED).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exception));
+            MyAlertDialog.getInstance(result, MyDialogStyle.FAILED).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exception));
             return false;
         }
         return true;
