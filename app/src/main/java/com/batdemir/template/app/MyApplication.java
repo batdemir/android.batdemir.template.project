@@ -105,6 +105,8 @@ public class MyApplication extends Application {
 
             PendingIntent pendingIntent = PendingIntent.getActivity(getBaseContext(), 0, crashedIntent, PendingIntent.FLAG_ONE_SHOT);
             AlarmManager alarmManager = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager == null)
+                return;
             alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendingIntent);
 
             System.exit(2);

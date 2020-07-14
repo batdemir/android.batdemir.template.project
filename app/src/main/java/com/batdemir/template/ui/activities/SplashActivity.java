@@ -56,7 +56,12 @@ public class SplashActivity extends AppCompatActivity implements
                             || !shouldShowRequestPermissionRationale(permissions[8])
                             || !shouldShowRequestPermissionRationale(permissions[9])
                             || !shouldShowRequestPermissionRationale(permissions[10])) {
-                        MyAlertDialog.getInstance(getString(R.string.message_please_activate_the_permissions_in_the_Applications_app_name_permissions_section, getString(R.string.app_name)), MyDialogStyle.INFO).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_permission));
+                        new MyAlertDialog
+                                .Builder()
+                                .setMessage(getString(R.string.message_please_activate_the_permissions_in_the_Applications_app_name_permissions_section, getString(R.string.app_name)))
+                                .setStyle(MyDialogStyle.INFO)
+                                .build()
+                                .show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_permission));
                     } else {
                         try {
                             Thread.sleep(2000);
@@ -135,7 +140,12 @@ public class SplashActivity extends AppCompatActivity implements
     private boolean checkException() {
         String result = getIntent().getStringExtra("CRASH_REPORT");
         if (result != null && !result.isEmpty()) {
-            MyAlertDialog.getInstance(result, MyDialogStyle.FAILED).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exception));
+            new MyAlertDialog
+                    .Builder()
+                    .setMessage(result)
+                    .setStyle(MyDialogStyle.FAILED)
+                    .build()
+                    .show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exception));
             return false;
         }
         return true;

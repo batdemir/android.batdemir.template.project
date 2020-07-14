@@ -24,7 +24,7 @@ import com.batdemir.utilities.MethodHelper;
 public abstract class BaseBarcodeActivity<Binding, Controller extends BaseController> extends BaseActivity<Binding, Controller> implements
         MyAlertDialogEditTextListener {
 
-    private MyReceiver myReceiver;
+    private MyReceiver<Controller> myReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,8 +59,11 @@ public abstract class BaseBarcodeActivity<Binding, Controller extends BaseContro
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.itemBarcodeReceive) {
-            MyAlertDialog myAlertDialog = MyAlertDialog.getInstance(getString(R.string.message_please_enter_barcode), MyDialogStyle.INPUT);
-            myAlertDialog.show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_barcode_dialog));
+            new MyAlertDialog
+                    .Builder()
+                    .setMessage(getString(R.string.message_please_enter_barcode))
+                    .setStyle(MyDialogStyle.INPUT).build()
+                    .show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_barcode_dialog));
             return true;
         }
         return false;

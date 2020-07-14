@@ -18,7 +18,7 @@ import com.batdemir.template.ui.activities.base.factory.ControllerFactory;
 import com.batdemir.utilities.MethodHelper;
 
 @SuppressWarnings({"squid:S00119"})
-public abstract class BaseActivity<Binding, Controller extends BaseController> extends AppCompatActivity implements
+public abstract class BaseActivity<Binding, Controller extends BaseController<?>> extends AppCompatActivity implements
         BaseActions,
         MyAlertDialogButtonListener {
 
@@ -58,7 +58,12 @@ public abstract class BaseActivity<Binding, Controller extends BaseController> e
     @Override
     public void onBackPressed() {
         if (isFirstActivity) {
-            MyAlertDialog.getInstance(getString(R.string.message_are_you_sure_exit_application), MyDialogStyle.ACTION).show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exit));
+            new MyAlertDialog
+                    .Builder()
+                    .setMessage(getString(R.string.message_are_you_sure_exit_application))
+                    .setStyle(MyDialogStyle.ACTION)
+                    .build()
+                    .show(getSupportFragmentManager(), getString(R.string.alert_dialog_key_exit));
             return;
         } else {
             finish();

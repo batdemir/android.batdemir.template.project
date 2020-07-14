@@ -20,8 +20,12 @@ public class SpecificConnect extends Connect {
     @Override
     public void connect(Context context, Call call, String operationType) {
         if (!ToolConnection.getInstance(context).isConnected()) {
-            String noConnectionMessage = context.getString(R.string.please_check_your_internet_connection);
-            MyAlertDialog.getInstance(noConnectionMessage, MyDialogStyle.WARNING).show(((FragmentActivity) context).getSupportFragmentManager(), Connect.class.getSimpleName());
+            new MyAlertDialog
+                    .Builder()
+                    .setMessage(context.getString(R.string.please_check_your_internet_connection))
+                    .setStyle(MyDialogStyle.WARNING)
+                    .build()
+                    .show(((FragmentActivity) context).getSupportFragmentManager(), Connect.class.getSimpleName());
             return;
         }
         new SpecificConnectService(context, operationType).execute(call);

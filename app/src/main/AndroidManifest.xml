@@ -45,7 +45,7 @@
 
         <receiver
             android:name=".app.MyReceiver"
-            tools:ignore="ExportedReceiver">
+            tools:ignore="ExportedReceiver,Instantiatable">
             <intent-filter>
                 <action android:name="com.aurabilisim.barcode.ACTION" />
 

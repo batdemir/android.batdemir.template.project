@@ -1,8 +1,9 @@
 package com.batdemir.utilities;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 
 import com.android.batdemir.mydialog.listeners.MyAlertDialogCreator;
 import com.android.batdemir.mydialog.ui.MyAlertDialog;
@@ -17,8 +18,8 @@ public class SpecificDialogImp implements MyAlertDialogCreator {
     public static class SpecificDialog extends MyAlertDialog {
 
         @Override
-        public void show(@NonNull FragmentManager manager, @Nullable String tag) {
-            super.show(manager, tag);
+        public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
             if (getContext() != null)
                 MethodHelper.getInstance().setScanner(getContext(), false);
         }
