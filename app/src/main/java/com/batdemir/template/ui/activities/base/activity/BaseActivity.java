@@ -17,14 +17,13 @@ import com.batdemir.template.ui.activities.base.factory.BindingFactory;
 import com.batdemir.template.ui.activities.base.factory.ControllerFactory;
 import com.batdemir.utilities.MethodHelper;
 
-@SuppressWarnings({"squid:S00119"})
-public abstract class BaseActivity<Binding, Controller extends BaseController<?>> extends AppCompatActivity implements
+public abstract class BaseActivity<B, C extends BaseController<?>> extends AppCompatActivity implements
         BaseActions,
         MyAlertDialogButtonListener {
 
-    private boolean isFirstActivity;
-    private Binding binding;
-    private Controller controller;
+    private B binding;
+    private C controller;
+    private ActivityBuilder builder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public abstract class BaseActivity<Binding, Controller extends BaseController<?>
 
     @Override
     public void onBackPressed() {
-        if (isFirstActivity) {
+        if (builder.isFirstActivity()) {
             new MyAlertDialog
                     .Builder()
                     .setMessage(getString(R.string.message_are_you_sure_exit_application))
@@ -112,72 +111,93 @@ public abstract class BaseActivity<Binding, Controller extends BaseController<?>
         controller = null;
     }
 
-    protected void init(String title) {
-        setTheme(R.style.AppThemeActionBar);
+    protected void init(ActivityBuilder builder) {
+        if (builder == null)
+            builder = new ActivityBuilder();
+        setTheme(builder.theme);
         if (getSupportActionBar() == null)
             return;
         getSupportActionBar();
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setElevation(16f);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(builder.getTitle());
+        getSupportActionBar().setElevation(builder.getElevation());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(builder.isShowHomeButton());
     }
 
-    protected void init(@StyleRes int theme, String title) {
-        setTheme(theme);
-        if (getSupportActionBar() == null)
-            return;
-        getSupportActionBar();
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setElevation(16f);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    protected void init(@StyleRes int theme, String title, boolean showHomeButton) {
-        setTheme(theme);
-        if (getSupportActionBar() == null)
-            return;
-        getSupportActionBar();
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setElevation(16f);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
-    }
-
-    protected void init(@StyleRes int theme, String title, float elevation) {
-        setTheme(theme);
-        if (getSupportActionBar() == null)
-            return;
-        getSupportActionBar();
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setElevation(elevation);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    protected void init(@StyleRes int theme, String title, float elevation, boolean showHomeButton) {
-        setTheme(theme);
-        if (getSupportActionBar() == null)
-            return;
-        getSupportActionBar();
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setElevation(elevation);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
-    }
-
-    protected void init(@StyleRes int theme, String title, float elevation, boolean showHomeButton, boolean isFirstActivity) {
-        this.isFirstActivity = isFirstActivity;
-        setTheme(theme);
-        if (getSupportActionBar() == null)
-            return;
-        getSupportActionBar();
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setElevation(elevation);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeButton);
-    }
-
-    protected Binding getBinding() {
+    protected B getBinding() {
         return binding;
     }
 
-    protected Controller getController() {
+    protected C getController() {
         return controller;
+    }
+
+    public static class ActivityBuilder {
+        @StyleRes
+        private int theme;
+        private String title;
+        private float elevation;
+        private boolean showHomeButton;
+        private boolean isFirstActivity;
+
+        public ActivityBuilder() {
+            this.theme = R.style.AppThemeNoActionBar;
+            this.title = "";
+            this.elevation = 0f;
+            this.showHomeButton = false;
+            this.isFirstActivity = false;
+        }
+
+        public ActivityBuilder(@StyleRes int theme, String title, float elevation, boolean showHomeButton, boolean isFirstActivity) {
+            this.theme = theme;
+            this.title = title;
+            this.elevation = elevation;
+            this.showHomeButton = showHomeButton;
+            this.isFirstActivity = isFirstActivity;
+        }
+
+        public int getTheme() {
+            return theme;
+        }
+
+        public ActivityBuilder setTheme(@StyleRes int theme) {
+            this.theme = theme;
+            return this;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public ActivityBuilder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public float getElevation() {
+            return elevation;
+        }
+
+        public ActivityBuilder setElevation(float elevation) {
+            this.elevation = elevation;
+            return this;
+        }
+
+        public boolean isShowHomeButton() {
+            return showHomeButton;
+        }
+
+        public ActivityBuilder setShowHomeButton(boolean showHomeButton) {
+            this.showHomeButton = showHomeButton;
+            return this;
+        }
+
+        public boolean isFirstActivity() {
+            return isFirstActivity;
+        }
+
+        public ActivityBuilder setFirstActivity(boolean firstActivity) {
+            isFirstActivity = firstActivity;
+            return this;
+        }
     }
 }

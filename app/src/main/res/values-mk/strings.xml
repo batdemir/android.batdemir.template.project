@@ -9,4 +9,9 @@
     <string name="exception_last_process_failed">Последниот процес не успеа.</string>
     <string name="exception_system_closed_by_unexpected_error">Системот затворен од неочекувана грешка.</string>
     <string name="exception_please_contact_your_manager">Ве молиме контактирајте го вашиот менаџер.</string>
+
+    <!--LOGIN-->
+    <string name="user_name">Корисничко име</string>
+    <string name="password">Лозинка</string>
+    <string name="login">Логирај Се</string>
 </resources>

@@ -20,11 +20,10 @@ import com.batdemir.template.app.OnReceivedListener;
 import com.batdemir.template.ui.activities.base.controller.BaseController;
 import com.batdemir.utilities.MethodHelper;
 
-@SuppressWarnings({"squid:S00119"})
-public abstract class BaseBarcodeActivity<Binding, Controller extends BaseController> extends BaseActivity<Binding, Controller> implements
+public abstract class BaseBarcodeActivity<B, C extends BaseController<?>> extends BaseActivity<B, C> implements
         MyAlertDialogEditTextListener {
 
-    private MyReceiver<Controller> myReceiver;
+    private MyReceiver<C> myReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

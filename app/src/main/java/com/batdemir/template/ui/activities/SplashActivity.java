@@ -17,8 +17,24 @@ import com.android.batdemir.mylibrary.tools.Tool;
 import com.batdemir.template.R;
 import com.batdemir.template.ui.activities.login.LoginActivity;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class SplashActivity extends AppCompatActivity implements
         MyAlertDialogButtonListener {
+
+    private String[] permissions = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.VIBRATE
+    };
 
     @Override
     protected void onStart() {
@@ -32,30 +48,17 @@ public class SplashActivity extends AppCompatActivity implements
         if (permissions.length != 0) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             if (requestCode == 100) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[2] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[3] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[4] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[5] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[6] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[7] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[8] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[9] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[10] == PackageManager.PERMISSION_GRANTED) {
+                if (Arrays.stream(grantResults).allMatch(x -> x == PackageManager.PERMISSION_GRANTED)) {
                     move();
                 } else {
-                    if (!shouldShowRequestPermissionRationale(permissions[0])
-                            || !shouldShowRequestPermissionRationale(permissions[1])
-                            || !shouldShowRequestPermissionRationale(permissions[2])
-                            || !shouldShowRequestPermissionRationale(permissions[3])
-                            || !shouldShowRequestPermissionRationale(permissions[4])
-                            || !shouldShowRequestPermissionRationale(permissions[5])
-                            || !shouldShowRequestPermissionRationale(permissions[6])
-                            || !shouldShowRequestPermissionRationale(permissions[7])
-                            || !shouldShowRequestPermissionRationale(permissions[8])
-                            || !shouldShowRequestPermissionRationale(permissions[9])
-                            || !shouldShowRequestPermissionRationale(permissions[10])) {
+                    boolean status = false;
+                    for (String permission : permissions) {
+                        if (!shouldShowRequestPermissionRationale(permission)) {
+                            status = true;
+                            break;
+                        }
+                    }
+                    if (status) {
                         new MyAlertDialog
                                 .Builder()
                                 .setMessage(getString(R.string.message_please_activate_the_permissions_in_the_Applications_app_name_permissions_section, getString(R.string.app_name)))
@@ -67,11 +70,10 @@ public class SplashActivity extends AppCompatActivity implements
                             Thread.sleep(2000);
                             move();
                         } catch (Exception e) {
-                            Log.e(SplashActivity.class.getSimpleName(), e.getMessage());
+                            Log.e(SplashActivity.class.getSimpleName(), Objects.requireNonNull(e.getMessage()));
                         }
                     }
                 }
-
             }
         }
     }
@@ -109,29 +111,16 @@ public class SplashActivity extends AppCompatActivity implements
     // FUNCTIONS
 
     private boolean checkPermissions() {
-        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED
-                || checkSelfPermission(Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA,
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_NETWORK_STATE,
-                            Manifest.permission.ACCESS_WIFI_STATE,
-                            Manifest.permission.READ_PHONE_STATE,
-                            Manifest.permission.BLUETOOTH_ADMIN,
-                            Manifest.permission.BLUETOOTH,
-                            Manifest.permission.VIBRATE},
-                    100);
+        boolean status = false;
+        for (String permission : permissions) {
+            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                status = true;
+                break;
+            }
+        }
+
+        if (status) {
+            requestPermissions(permissions, 100);
             return false;
         }
         return true;

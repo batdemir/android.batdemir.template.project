@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 
 import com.batdemir.template.databinding.ActivityLoginBinding;
 
-@SuppressWarnings({"squid:S00119", "squid:S1121", "unchecked"})
 public class BindingFactory {
 
     private static BindingFactory instance;
@@ -15,17 +14,20 @@ public class BindingFactory {
     }
 
     public static synchronized BindingFactory getInstance() {
-        return instance = instance == null ? new BindingFactory() : instance;
+        if (instance == null)
+            instance = new BindingFactory();
+        return instance;
     }
 
-    public <Binding> Binding getBinding(String strBinding, LayoutInflater inflater) {
+    @SuppressWarnings("unchecked")
+    public <B> B getBinding(String strBinding, LayoutInflater inflater) {
         if (strBinding == null)
             throw new NullPointerException("Binding Not Found");
 
         if (strBinding.equalsIgnoreCase("Login")) {
             ActivityLoginBinding binding = ActivityLoginBinding.inflate(inflater);
             ((Activity) inflater.getContext()).setContentView(binding.getRoot());
-            return (Binding) binding;
+            return (B) binding;
         }
 
         throw new NullPointerException("Controller Not Found");

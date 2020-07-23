@@ -1,6 +1,5 @@
 package com.batdemir.template.app;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Application;
@@ -11,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.text.HtmlCompat;
 
@@ -45,57 +45,58 @@ public class MyApplication extends Application {
     private ActivityLifecycleCallbacks getActivityLifecycleCallbacks() {
         return new ActivityLifecycleCallbacks() {
             @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
                 setKeepScreen(activity, true);
                 setExceptionHandler();
             }
 
             @Override
-            public void onActivityStarted(Activity activity) {
+            public void onActivityStarted(@NonNull Activity activity) {
                 //Not Implemented
             }
 
             @Override
-            public void onActivityResumed(Activity activity) {
+            public void onActivityResumed(@NonNull Activity activity) {
                 //Not Implemented
             }
 
             @Override
-            public void onActivityPaused(Activity activity) {
+            public void onActivityPaused(@NonNull Activity activity) {
                 setKeepScreen(activity, false);
             }
 
             @Override
-            public void onActivityStopped(Activity activity) {
+            public void onActivityStopped(@NonNull Activity activity) {
                 //Not Implemented
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
                 //Not Implemented
             }
 
             @Override
-            public void onActivityDestroyed(Activity activity) {
+            public void onActivityDestroyed(@NonNull Activity activity) {
                 //Not Implemented
             }
         };
     }
 
-    @SuppressLint("NewApi")
     private void setExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
             StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("<p>");
             stringBuilder.append(getBaseContext().getString(R.string.exception_last_process_failed));
             stringBuilder.append(getBaseContext().getString(R.string.exception_system_closed_by_unexpected_error));
             stringBuilder.append(getBaseContext().getString(R.string.exception_please_contact_your_manager));
-            stringBuilder.append("Exception: ");
+            stringBuilder.append("</p>");
             for (int i = 0; i < e.getStackTrace().length; i++) {
                 if (!e.getStackTrace()[i].isNativeMethod()) {
-                    stringBuilder.append("------------------------------------------------------------");
-                    stringBuilder.append("FileName: ").append(e.getStackTrace()[i].getFileName());
-                    stringBuilder.append("MethodName: ").append(e.getStackTrace()[i].getMethodName());
-                    stringBuilder.append("LineNumber: ").append(e.getStackTrace()[i].getLineNumber());
+                    stringBuilder.append("<p>").append("----------------------------------------").append("</p>");
+                    stringBuilder.append("Exception: ");
+                    stringBuilder.append("<p>").append("FileName: ").append(e.getStackTrace()[i].getFileName()).append("</p>");
+                    stringBuilder.append("<pr>").append("MethodName: ").append(e.getStackTrace()[i].getMethodName()).append("</p>");
+                    stringBuilder.append("<p>").append("LineNumber: ").append(e.getStackTrace()[i].getLineNumber()).append("</p>");
                 }
             }
 

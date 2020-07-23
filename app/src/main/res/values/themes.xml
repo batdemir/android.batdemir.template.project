@@ -2,9 +2,9 @@
 <resources>
 
     <style name="AppThemeActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryColor</item>
         <item name="android:textColorTertiary">@color/black</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -14,9 +14,9 @@
     </style>
 
     <style name="AppThemeNoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryColor</item>
         <item name="android:textColorTertiary">@color/black</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

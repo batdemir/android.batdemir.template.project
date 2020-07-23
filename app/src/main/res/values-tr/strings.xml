@@ -9,4 +9,9 @@
     <string name="exception_last_process_failed">Son işlem başarısız oldu.</string>
     <string name="exception_system_closed_by_unexpected_error">Sistem beklenmedik bir hata nedeniyle kapatıldı.</string>
     <string name="exception_please_contact_your_manager">Lütfen yöneticinize başvurun.</string>
+
+    <!--LOGIN-->
+    <string name="user_name">Kullanıcı Adı</string>
+    <string name="password">Şifre</string>
+    <string name="login">Giriş</string>
 </resources>

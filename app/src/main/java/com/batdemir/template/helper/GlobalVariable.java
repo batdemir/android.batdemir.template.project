@@ -3,6 +3,10 @@ package com.batdemir.template.helper;
 import java.util.Locale;
 
 public class GlobalVariable {
+    private GlobalVariable() {
+
+    }
+
     private static Locale locale = null;
 
     public static Locale getLocale() {
