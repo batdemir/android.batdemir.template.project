@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
+import androidx.viewbinding.ViewBinding;
 
 import com.android.batdemir.mydialog.listeners.MyAlertDialogEditTextListener;
 import com.android.batdemir.mydialog.ui.MyAlertDialog;
@@ -20,7 +21,7 @@ import com.batdemir.template.app.OnReceivedListener;
 import com.batdemir.template.ui.activities.base.controller.BaseController;
 import com.batdemir.utilities.MethodHelper;
 
-public abstract class BaseBarcodeActivity<B, C extends BaseController<?>> extends BaseActivity<B, C> implements
+public abstract class BaseBarcodeActivity<B extends ViewBinding, C extends BaseController<?>> extends BaseActivity<B, C> implements
         MyAlertDialogEditTextListener {
 
     private MyReceiver<C> myReceiver;

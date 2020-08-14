@@ -1,6 +1,9 @@
 package com.batdemir.template.ui.activities.base.factory;
 
+import androidx.viewbinding.ViewBinding;
+
 import com.batdemir.template.databinding.ActivityLoginBinding;
+import com.batdemir.template.ui.activities.base.controller.BaseController;
 import com.batdemir.template.ui.activities.login.LoginController;
 
 public class ControllerFactory {
@@ -16,7 +19,7 @@ public class ControllerFactory {
     }
 
     @SuppressWarnings("unchecked")
-    public <C, B> C getController(String controller, B binding) {
+    public <C extends BaseController<?>, B extends ViewBinding> C getController(String controller, B binding) {
         if (controller == null)
             throw new NullPointerException("Controller Not Found");
 

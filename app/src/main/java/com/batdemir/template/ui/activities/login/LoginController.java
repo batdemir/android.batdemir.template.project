@@ -1,16 +1,14 @@
 package com.batdemir.template.ui.activities.login;
 
-import android.animation.ObjectAnimator;
-import android.content.Context;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import com.android.batdemir.mylibrary.tools.ToolSharedPreferences;
 import com.batdemir.template.databinding.ActivityLoginBinding;
 import com.batdemir.template.ui.activities.base.controller.BaseController;
+import com.batdemir.utilities.MethodHelper;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -22,22 +20,39 @@ public class LoginController extends BaseController<ActivityLoginBinding> {
         super(binding);
     }
 
+    void isUserRemembered() {
+        String userGson = ToolSharedPreferences.getInstance(getBinding().getRoot().getContext()).getString("user");
+        if (userGson.isEmpty())
+            return;
+    }
+
     void clickLogin() {
         if (checkInput()) {
             Snackbar.make(getBinding().getRoot().getRootView(), "Success", Snackbar.LENGTH_SHORT).show();
         } else {
-            ObjectAnimator rotate = ObjectAnimator.ofFloat(getBinding().cardView, "rotation", 0f, 1f, 0f, -1f, 0f);
-            rotate.setRepeatCount(5);
-            rotate.setDuration(25);
-            rotate.start();
-            Vibrator vibrator = (Vibrator) getBinding().getRoot().getContext().getSystemService(Context.VIBRATOR_SERVICE);
-            Objects.requireNonNull(vibrator).vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
+            MethodHelper.getInstance().errorProcess(getBinding().cardView);
         }
     }
 
     void clickCopyright() {
         throw new NullPointerException();
     }
+
+    //----------------LOGICAL----------------
+
+    private boolean checkInput() {
+        if (Objects.requireNonNull(getBinding().editTextUserName.getText()).toString().isEmpty()) {
+            getBinding().inputLayoutUserName.setError("Please enter user name !");
+            return false;
+        }
+        if (Objects.requireNonNull(getBinding().editTextUserPassword.getText()).toString().isEmpty()) {
+            getBinding().inputLayoutUserPassword.setError("Please enter password !");
+            return false;
+        }
+        return true;
+    }
+
+    //----------------EVENTS----------------
 
     public TextWatcher addTextChangeEvent(TextInputLayout textInputLayout) {
         return new TextWatcher() {
@@ -67,17 +82,5 @@ public class LoginController extends BaseController<ActivityLoginBinding> {
             }
             return false;
         };
-    }
-
-    private boolean checkInput() {
-        if (Objects.requireNonNull(getBinding().editTextUserName.getText()).toString().isEmpty()) {
-            getBinding().inputLayoutUserName.setError("Please enter user name !");
-            return false;
-        }
-        if (Objects.requireNonNull(getBinding().editTextUserPassword.getText()).toString().isEmpty()) {
-            getBinding().inputLayoutUserPassword.setError("Please enter password !");
-            return false;
-        }
-        return true;
     }
 }

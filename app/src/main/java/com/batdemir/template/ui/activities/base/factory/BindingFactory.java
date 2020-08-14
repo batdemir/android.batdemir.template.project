@@ -3,6 +3,8 @@ package com.batdemir.template.ui.activities.base.factory;
 import android.app.Activity;
 import android.view.LayoutInflater;
 
+import androidx.viewbinding.ViewBinding;
+
 import com.batdemir.template.databinding.ActivityLoginBinding;
 
 public class BindingFactory {
@@ -20,7 +22,7 @@ public class BindingFactory {
     }
 
     @SuppressWarnings("unchecked")
-    public <B> B getBinding(String strBinding, LayoutInflater inflater) {
+    public <B extends ViewBinding> B getBinding(String strBinding, LayoutInflater inflater) {
         if (strBinding == null)
             throw new NullPointerException("Binding Not Found");
 
@@ -30,6 +32,6 @@ public class BindingFactory {
             return (B) binding;
         }
 
-        throw new NullPointerException("Controller Not Found");
+        throw new NullPointerException("Binding Not Found");
     }
 }

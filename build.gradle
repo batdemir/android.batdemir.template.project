@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        library_version = "0.2.3.3"
+        library_version = "0.2.3.5"
     }
     repositories {
         google()

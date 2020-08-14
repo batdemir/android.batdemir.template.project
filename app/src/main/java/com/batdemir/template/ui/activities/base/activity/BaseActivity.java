@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewbinding.ViewBinding;
 
 import com.android.batdemir.mydialog.listeners.MyAlertDialogButtonListener;
 import com.android.batdemir.mydialog.ui.MyAlertDialog;
@@ -17,7 +18,7 @@ import com.batdemir.template.ui.activities.base.factory.BindingFactory;
 import com.batdemir.template.ui.activities.base.factory.ControllerFactory;
 import com.batdemir.utilities.MethodHelper;
 
-public abstract class BaseActivity<B, C extends BaseController<?>> extends AppCompatActivity implements
+public abstract class BaseActivity<B extends ViewBinding, C extends BaseController<?>> extends AppCompatActivity implements
         BaseActions,
         MyAlertDialogButtonListener {
 
@@ -35,17 +36,15 @@ public abstract class BaseActivity<B, C extends BaseController<?>> extends AppCo
     @Override
     protected void onStart() {
         super.onStart();
-        runOnUiThread(this::getObjectReferences);
+        getObjectReferences();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        runOnUiThread(() -> {
-            MethodHelper.getInstance().setScanner(this, false);
-            loadData();
-            setListeners();
-        });
+        MethodHelper.getInstance().setScanner(this, false);
+        loadData();
+        setListeners();
     }
 
     @Override
@@ -112,15 +111,14 @@ public abstract class BaseActivity<B, C extends BaseController<?>> extends AppCo
     }
 
     protected void init(ActivityBuilder builder) {
-        if (builder == null)
-            builder = new ActivityBuilder();
-        setTheme(builder.theme);
+        this.builder = (builder == null ? new ActivityBuilder() : builder);
+        setTheme(this.builder.theme);
         if (getSupportActionBar() == null)
             return;
         getSupportActionBar();
-        getSupportActionBar().setTitle(builder.getTitle());
-        getSupportActionBar().setElevation(builder.getElevation());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(builder.isShowHomeButton());
+        getSupportActionBar().setTitle(this.builder.getTitle());
+        getSupportActionBar().setElevation(this.builder.getElevation());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(this.builder.isShowHomeButton());
     }
 
     protected B getBinding() {

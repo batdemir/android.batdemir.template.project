@@ -13,5 +13,8 @@
     <!--LOGIN-->
     <string name="user_name">Корисничко име</string>
     <string name="password">Лозинка</string>
+    <string name="remember_me">Запомни ме</string>
     <string name="login">Логирај Се</string>
+    <string name="message_please_enter_user_name">Внесете го името на корисникот !</string>
+    <string name="message_please_enter_password">Внесете лозинка !</string>
 </resources>

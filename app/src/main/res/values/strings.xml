@@ -27,6 +27,9 @@
     <string name="copyright_2020_all_rights_reserved_batdemir" translatable="false">Copyright © 2020\nAll Rights Reserved-BATDEMIR</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
     <string name="login">Login</string>
+    <string name="message_please_enter_user_name">Please enter user name !</string>
+    <string name="message_please_enter_password">Please enter password !</string>
 
 </resources>
